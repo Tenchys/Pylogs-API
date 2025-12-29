@@ -11,4 +11,4 @@ async def get():
 
 @app.get("/test")
 async def test():
-    return '{"message": "this is a test"}'
+    return '{"message": "this is a test2"}'
