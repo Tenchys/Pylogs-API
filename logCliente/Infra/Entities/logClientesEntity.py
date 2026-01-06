@@ -7,7 +7,7 @@ class cliente(Base):
     __tablename__ = "clientes"
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String)
-    uuid = Column(String)
+    uuid = Column(String, index=True)
     vigencia = Column(Boolean)
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     
