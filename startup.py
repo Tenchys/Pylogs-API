@@ -3,7 +3,8 @@ from health.healthRoute import route as healthRoute
 from newLog.Router.newLogRouter import newlogRouter
 from logCliente.Router.logClienteRouter import logClienteRouter
 
-from newLog.Infra.Entities import logsEntities
+##from newLog.Infra.Entities import logsEntities
+from newLog.Infra import logsEntities
 from logCliente.Infra.Entities import logClientesEntity
 from config.database import engine
 
