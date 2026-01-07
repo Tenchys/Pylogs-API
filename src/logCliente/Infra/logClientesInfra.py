@@ -1,35 +1,35 @@
-from logCliente.Infra.Entities.logClientesEntity import aplicacion, cliente
+from .Entities import logClientesEntity
 from sqlalchemy.orm import Session
 
 def get_clientes(db: Session):
-    clientes = db.query(cliente).all()
+    clientes = db.query(logClientesEntity.cliente).all()
     return clientes
 
 def add_clientes(db: Session, nombre: str, uuid: str, vigencia: bool):
-    newCliente = cliente(nombre=nombre, uuid=uuid, vigencia=vigencia)
+    newCliente = logClientesEntity.cliente(nombre=nombre, uuid=uuid, vigencia=vigencia)
     db.add(newCliente)
     db.commit()
     db.refresh(newCliente)
     return newCliente
 
 def add_aplicacion(db: Session, nombre: str, uuid: str, vigencia: bool, cliente_uuid: str):
-    newApp = aplicacion(nombre=nombre, uuid=uuid, vigencia=vigencia, cliente_uuid=cliente_uuid)
+    newApp = logClientesEntity.aplicacion(nombre=nombre, uuid=uuid, vigencia=vigencia, cliente_uuid=cliente_uuid)
     db.add(newApp)
     db.commit()
     db.refresh(newApp)
     return newApp
 
 def get_cliente(db: Session, cliente_uuid: str):
-    unCliente = db.query(cliente).filter(cliente.uuid == cliente_uuid).first()
+    unCliente = db.query(logClientesEntity.cliente).filter(logClientesEntity.cliente.uuid == cliente_uuid).first()
     return unCliente
 
 def del_cliente(db: Session, cliente_uuid: str):
-    unCliente = db.query(cliente).filter(cliente.uuid == cliente_uuid).first()
+    unCliente = db.query(logClientesEntity.cliente).filter(logClientesEntity.cliente.uuid == cliente_uuid).first()
     db.delete(unCliente)
     db.commit()
 
 def upd_Cliente(db: Session, cliente_uuid: str, vigencia: bool = None, nombre: str = None):
-    unCliente = db.query(cliente).filter(cliente.uuid == cliente_uuid).first()
+    unCliente = db.query(logClientesEntity.cliente).filter(logClientesEntity.cliente.uuid == cliente_uuid).first()
     if vigencia is not None:
         unCliente.vigencia = vigencia
     if nombre is not None:
