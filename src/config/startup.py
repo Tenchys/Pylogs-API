@@ -18,3 +18,6 @@ def routes(app: FastAPI):
 def loadModels():
     logsEntities.Base.metadata.create_all(bind=engine)
     ClientesEntity.Base.metadata.create_all(bind=engine)
+
+
+

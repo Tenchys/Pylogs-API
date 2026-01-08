@@ -38,3 +38,7 @@ def upd_Cliente(db: Session, cliente_uuid: str, vigencia: bool = None, nombre: s
     db.commit()
     db.refresh(unCliente)
     return unCliente
+
+def get_aplicacion(db: Session, aplicacion_uuid: str):
+    appObj = db.query(ClientesEntity.aplicacion).filter(ClientesEntity.aplicacion.uuid == aplicacion_uuid).first()
+    return appObj
