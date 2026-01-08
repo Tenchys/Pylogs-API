@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship, configure_mappers
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from src.config.database import Base
 
@@ -21,5 +21,3 @@ class infolog(Base):
 
     
     log = relationship("log", back_populates="infologs")
-
-configure_mappers()
