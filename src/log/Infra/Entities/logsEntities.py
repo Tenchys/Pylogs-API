@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, configure_mappers
 from sqlalchemy.sql import func
 from src.config.database import Base
 
@@ -9,9 +9,8 @@ class log(Base):
     mensaje = Column(String)
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     alerta = Column(Boolean, default=False)
-    infologs = relationship("infologs", back_populates="log", cascade="all, delete-orphan")
-
-
+    app_uuid = Column(String, ForeignKey("aplicaciones.uuid"), nullable=False)
+    infologs = relationship("infolog", back_populates="log", cascade="all, delete-orphan")
 
 class infolog(Base):
     __tablename__ = "infologs"
@@ -20,4 +19,7 @@ class infolog(Base):
     valor_alerta = Column(String(500), nullable= False)
     log_id = Column(Integer, ForeignKey("logs.id"), nullable=False)
 
+    
     log = relationship("log", back_populates="infologs")
+
+configure_mappers()

@@ -36,3 +36,7 @@ async def del_clienteService(db: Session, cliente_uuid: str):
 async def udp_ClienteService(db: Session, clienteRequest: ClienteModel.updClienteRequest):
     unCliente = ClientesInfra.upd_Cliente(db=db, cliente_uuid=clienteRequest.uuid, vigencia=clienteRequest.vigencia, nombre=clienteRequest.nombre)
     return unCliente
+
+async def get_aplicacion(db: Session, aplicacion_uuid: str):
+    appObj = ClientesInfra.get_aplicacion(db, aplicacion_uuid=aplicacion_uuid)
+    return appObj

@@ -18,7 +18,7 @@ class infologResponse(infologBase):
     model_config = {"from_attributes": True}
 
 class logCreate(logBase):
-    uuid: str
+    uuid: Optional[str] = None
     infologs: Optional[List[infologCreate]] = None
 
 class logResponse(logBase):

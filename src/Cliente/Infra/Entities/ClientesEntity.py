@@ -1,5 +1,5 @@
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, configure_mappers
 from sqlalchemy.sql import func
 from src.config.database import Base
 
@@ -23,4 +23,6 @@ class aplicacion(Base):
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     cliente_uuid = Column(String, ForeignKey("clientes.uuid"), nullable=False)  
 
+    logs = relationship("log", backref="aplicaciones")
     cliente = relationship("cliente", back_populates="aplicaciones")
+
