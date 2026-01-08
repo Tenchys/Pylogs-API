@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
-from config.database import Base
+from src.config.database import Base
 
 class cliente(Base):
     __tablename__ = "clientes"

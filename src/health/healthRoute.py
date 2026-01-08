@@ -1,10 +1,10 @@
 from fastapi import APIRouter
-from health.healthModel import HealthModel
+from . import healthModel
 route = APIRouter()
 
 rutaBase = "/health"
 
 @route.get(f"{rutaBase}")
 async def get():
-    response = HealthModel()
+    response = healthModel.HealthModel()
     return response
