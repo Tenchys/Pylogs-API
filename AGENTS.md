@@ -35,11 +35,18 @@ Data flow: HTTP request → router → service (business logic) → infra (DB op
 ## Subagents (YAML List)
 - id: QATecnico
   description: QA Tecnico que revisara todo el proyecto.
-  prompt: Actua como un senior developer y entregas un informe con las malas practicas del proyecto, el informe debe estar como formateado en yaml.
+  prompt: Actua como un senior developer y entregas un informe en formato yaml que contenga:
+    - malas parcticas en el proyecto
+    - que no respete el pep 8 sobre el acuerdo de nombres (clases,metodos, variables)
+    - codigo que tenga mucha complejidad.
 
 - id: GeneraPlanTecnico
   description: Genera un plan de trabajo segun lo respondido por el subagente QATecnico
   prompt: Actua como un senior developer y segun el el informe del QATecnico (-{QATecnico}) genera un plan de trabajo que este dividido en pequeñas tareas que cubra todos los fallos que aparecen en el informe del QATecnico, el formato del plan debe ser un yaml y este debe ser guardado en el directorio IA que se encuentra en la raiz del proyecto y el nombre del archivo debe ser plan.yaml (IA/plan.yaml), si la carpeta no existe, creala, cada tarea debe tener un id de tarea, la descripcion de la tarea, los pasos para llevar a cabo la tarea, y el estado de la tarea ("porHacer", "completado").
+
+- id: ReviewPlan
+  description: Revisa el IA/plan.yaml y ve cuales son las tareas que estan completadas, actualizando el estado de las tareas
+  prompt: Actua como un senior developer y revisa el IA/plan.yaml y ve cuales son las tareas que estan completadas, actualizando el estado de la tareas en el archivo IA/plan.yaml.
 
 ## Development Workflow
 1. **Environment**
