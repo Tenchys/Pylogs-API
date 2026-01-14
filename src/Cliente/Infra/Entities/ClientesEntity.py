@@ -23,4 +23,6 @@ class aplicacion(Base):
     fecha_creacion = Column(DateTime(timezone=True), server_default=func.now())
     cliente_uuid = Column(String, ForeignKey("clientes.uuid"), nullable=False)  
 
+    logs = relationship("log", backref="aplicaciones")
     cliente = relationship("cliente", back_populates="aplicaciones")
+
