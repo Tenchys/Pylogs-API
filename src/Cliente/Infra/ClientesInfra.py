@@ -1,3 +1,4 @@
+from typing import Optional
 from .Entities import ClientesEntity
 from sqlalchemy.orm import Session
 
@@ -28,8 +29,10 @@ def del_cliente(db: Session, cliente_uuid: str):
     db.delete(unCliente)
     db.commit()
 
-def upd_Cliente(db: Session, cliente_uuid: str, vigencia: bool = None, nombre: str = None):
+def upd_Cliente(db: Session, cliente_uuid: str, vigencia: Optional[bool] = None, nombre: Optional[str] = None):
     unCliente = db.query(ClientesEntity.cliente).filter(ClientesEntity.cliente.uuid == cliente_uuid).first()
+    if unCliente is None:
+        return None
     if vigencia is not None:
         unCliente.vigencia = vigencia
     if nombre is not None:
@@ -41,4 +44,12 @@ def upd_Cliente(db: Session, cliente_uuid: str, vigencia: bool = None, nombre: s
 
 def get_aplicacion(db: Session, aplicacion_uuid: str):
     appObj = db.query(ClientesEntity.aplicacion).filter(ClientesEntity.aplicacion.uuid == aplicacion_uuid).first()
+    return appObj
+
+def get_aplicacion_with_cliente(db: Session, aplicacion_uuid: str) -> Optional[ClientesEntity.aplicacion]:
+    """Obtiene una aplicación junto con su cliente relacionado usando joinedload"""
+    from sqlalchemy.orm import joinedload
+    appObj = db.query(ClientesEntity.aplicacion).options(
+        joinedload(ClientesEntity.aplicacion.cliente)
+    ).filter(ClientesEntity.aplicacion.uuid == aplicacion_uuid).first()
     return appObj

@@ -1,4 +1,5 @@
-from http.client import HTTPException
+from typing import Optional, Any
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 import uuid
 
@@ -39,4 +40,9 @@ async def udp_ClienteService(db: Session, clienteRequest: ClienteModel.updClient
 
 async def get_aplicacion(db: Session, aplicacion_uuid: str):
     appObj = ClientesInfra.get_aplicacion(db, aplicacion_uuid=aplicacion_uuid)
+    return appObj
+
+async def get_aplicacion_with_cliente(db: Session, aplicacion_uuid: str) -> Optional[Any]:
+    """Obtiene una aplicación junto con su cliente relacionado"""
+    appObj = ClientesInfra.get_aplicacion_with_cliente(db, aplicacion_uuid=aplicacion_uuid)
     return appObj
