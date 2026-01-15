@@ -5,6 +5,6 @@ route = APIRouter()
 rutaBase = "/health"
 
 @route.get(f"{rutaBase}")
-async def get():
+def get():
     response = healthModel.HealthModel()
     return response

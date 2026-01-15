@@ -12,9 +12,13 @@ def create_log(db: Session, log_data: logmodels.logCreate):
     if log_data.infologs is not None:
         for info in log_data.infologs:
             newlog.infologs.append(logsEntities.infolog(nombre_alerta=info.nombre_alerta, valor_alerta=info.valor_alerta))
-    db.add(newlog)
-    db.commit()
-    db.refresh(newlog)
+    try:
+        db.add(newlog)
+        db.commit()
+        db.refresh(newlog)
+    except Exception:
+        db.rollback()
+        raise
     return newlog
 
 
