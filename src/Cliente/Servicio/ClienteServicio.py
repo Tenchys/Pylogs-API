@@ -7,7 +7,7 @@ from src.Cliente.Servicio import ClienteModel
 from src.Cliente.Infra import ClientesInfra
 
 
-async def add_clienteService(db: Session, cliente: ClienteModel.clienteNew):
+async def add_clienteService(db: Session, cliente: ClienteModel.clienteNew) -> ClienteModel.clienteResponse:
 
     strUuid = str(uuid.uuid4())
     newcliente = ClientesInfra.add_clientes(db, cliente.nombre, strUuid, cliente.vigencia)
